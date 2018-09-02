@@ -24,8 +24,16 @@ public class Melody {
 		this.song = (ArrayQueue<Note>) song;
 		length = 0;
 		noteSize = song.size();
+		
+		boolean isRepeating = false;
 		for (int i = 0; i < noteSize; i++) {
 			Note curNote = song.remove();
+			if (curNote.isRepeat()) {
+				isRepeating = !isRepeating;
+			}
+			if (isRepeating) {
+				length += curNote.getDuration();
+			}
 			length += curNote.getDuration();
 			song.add(curNote);
 		}
@@ -80,28 +88,30 @@ public class Melody {
 			song.add(curNote);
 			other.song.add(curNote);
 		}
+		length += other.length;
+		noteSize += other.noteSize;
 	}
 	
 	public void play() {
 		boolean isRepeating = false;
+		QueueADT<Note> tempQueue = new ArrayQueue<Note>();
 		for (int i = 0; i < noteSize; i++) {
-			QueueADT<Note> tempQueue = new ArrayQueue<Note>();
 			Note curNote = song.remove();
-			if (curNote.isRepeat() && isRepeating) {
-				while (!tempQueue.isEmpty()) {
-					tempQueue.remove().play();
-				}
-				isRepeating = false;
-			}
-			if (isRepeating) {
-				tempQueue.add(curNote);
-			}
-			if (curNote.isRepeat() && !isRepeating) {
-				tempQueue.add(curNote);
-				isRepeating = true;
-			}
 			curNote.play();
 			song.add(curNote);
+			if (curNote.isRepeat()) {
+				tempQueue.add(curNote);
+				if (isRepeating) {
+					while (!tempQueue.isEmpty()) {
+						tempQueue.remove().play();
+					}
+				}
+				isRepeating = !isRepeating;
+			}
+			
+			if (isRepeating && !curNote.isRepeat()) {
+				tempQueue.add(curNote);
+			}
 		}
 	}
 }
