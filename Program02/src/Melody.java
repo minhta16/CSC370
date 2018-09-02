@@ -1,9 +1,9 @@
 /**
- * @author 
- * @date 
+ * @author Minh Ta
+ * @date 09/01/2018
  * @version CSC370 Program 2, Fall 2018
  * 
- * Description:
+ * Description: A class storing a song and its title and artist.
  * 
  * 
  * Cite Assistance (who and what):
@@ -87,18 +87,18 @@ public class Melody {
 		for (int i = 0; i < noteSize; i++) {
 			QueueADT<Note> tempQueue = new ArrayQueue<Note>();
 			Note curNote = song.remove();
-			if (curNote.isRepeat() && !isRepeating) {
-				tempQueue.add(curNote);
-				isRepeating = true;
-			}
-			if (isRepeating) {
-				tempQueue.add(curNote);
-			}
 			if (curNote.isRepeat() && isRepeating) {
 				while (!tempQueue.isEmpty()) {
 					tempQueue.remove().play();
 				}
 				isRepeating = false;
+			}
+			if (isRepeating) {
+				tempQueue.add(curNote);
+			}
+			if (curNote.isRepeat() && !isRepeating) {
+				tempQueue.add(curNote);
+				isRepeating = true;
 			}
 			curNote.play();
 			song.add(curNote);
