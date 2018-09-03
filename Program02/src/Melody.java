@@ -39,18 +39,33 @@ public class Melody {
 		}
 	}
 	
+	/**
+	 * @return title of song(s)
+	 */
 	public String getTitle() {
 		return title;
 	}
 	
+	/**
+	 * 
+	 * @return artist(s) name
+	 */
 	public String getArtist() {
 		return artist;
 	}
 	
+	/**
+	 * 
+	 * @return duration of the song
+	 */
 	public double getTotalDuration() {
 		return length;
 	}
 	
+	/**
+	 * 
+	 * @return a string representation of the song(s)
+	 */
 	public String toString() {
 		String string = title + "\n" + artist + "\n";
 		for (int i = 0; i < noteSize; i++) {
@@ -61,6 +76,10 @@ public class Melody {
 		return string;
 	}
 	
+	/**
+	 * Changing the duration of all notes in the song by a multiple of tempo.
+	 * @param tempo a ratio for the song(s) to change speed to
+	 */
 	public void changeTempo(double tempo) {
 		for (int i = 0; i < noteSize; i++) {
 			Note curNote = song.remove();
@@ -70,6 +89,9 @@ public class Melody {
 		length *= tempo;
 	}
 	
+	/**
+	 * Reverse the order of all notes in the song.
+	 */
 	public void reverse() {
 		StackADT<Note> stack = new ArrayStack<Note>();
 		for (int i = 0; i < noteSize; i++) {
@@ -82,6 +104,10 @@ public class Melody {
 		}
 	}
 	
+	/**
+	 * Add all notes of another song to the end of the current song.
+	 * @param other - another song
+	 */
 	public void append(Melody other) {
 		for (int i = 0; i < other.noteSize; i++) {
 			Note curNote = other.song.remove();
@@ -92,6 +118,9 @@ public class Melody {
 		noteSize += other.noteSize;
 	}
 	
+	/**
+	 * Play the song(s).
+	 */
 	public void play() {
 		boolean isRepeating = false;
 		QueueADT<Note> tempQueue = new ArrayQueue<Note>();

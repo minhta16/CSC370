@@ -73,7 +73,7 @@ public class ArrayQueue<E> implements QueueADT<E> {
     // post: ensures that the underlying array has the given capacity; if not,
     //       the size is doubled plus 1 (or more if given capacity is even larger)
 	private void ensureCapacity(int capacity) {
-        if (capacity > elementData.length) {
+        if (capacity >= elementData.length) {
             int newCapacity = elementData.length * 2 + 1;
             if (capacity > newCapacity) {
                 newCapacity = capacity;
