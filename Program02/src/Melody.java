@@ -35,14 +35,19 @@ public class Melody {
 		
 		boolean isRepeating = false;
 		for (int i = 0; i < noteSize; i++) {
+			// adds up the duration of the song
 			Note curNote = song.remove();
+			length += curNote.getDuration();
+			
+			// adds the repeated duration
 			if (curNote.isRepeat()) {
 				isRepeating = !isRepeating;
 			}
-			if (isRepeating) {
+								// special case for the last note
+			if (isRepeating || (curNote.isRepeat() && !isRepeating)) {
 				length += curNote.getDuration();
 			}
-			length += curNote.getDuration();
+			
 			song.add(curNote);
 		}
 	}
@@ -145,10 +150,10 @@ public class Melody {
 			curNote.play();
 			song.add(curNote);
 			
-			//repeat the section if needed
+			// repeat the section if needed
 			
-			//add to tempQueue the starting note of the section
 			if (curNote.isRepeat()) {
+				// add to tempQueue the starting note of the section
 				tempQueue.add(curNote);
 				
 				// this checks the end of the repeating sequence
@@ -160,6 +165,9 @@ public class Melody {
 				}
 				isRepeating = !isRepeating;
 			}
+			
+			// ends of the repeat section
+			
 			
 			//the notes in between the two repeating notes are added to tempQueue
 			if (isRepeating && !curNote.isRepeat()) {

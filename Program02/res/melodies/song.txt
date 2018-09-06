@@ -1,4 +1,73 @@
-Replace this with your song's title!
-Replace this with your song's artist!
-This is where your notes should be in the correct format.
+Shooting Stars
+Bag Raiders
+.5 E 4 FLAT true
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.5 E 4 NATURAL false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
+.125 E 4 FLAT true
+.5 E 4 FLAT false
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.5 E 4 NATURAL false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
+.125 E 4 FLAT false
+.5 E 4 FLAT false
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.25 E 4 NATURAL false
+.25 E 4 FLAT false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
+.5 F 4 SHARP true
+.25 F 4 SHARP false
+.25 F 4 SHARP false
+.5 G 4 SHARP false
+.25 E 4 FLAT false
+.125 B 3 NATURAL false
+.125 F 4 SHARP true
+.5 F 4 SHARP false
+.25 F 4 SHARP false
+.25 F 4 SHARP false
+.5 G 4 SHARP false
+.25 E 4 FLAT false
+.125 B 3 NATURAL false
+.125 F 4 SHARP false
+.5 F 4 SHARP false
+.25 F 4 SHARP false
+.25 F 4 SHARP false
+.25 E 4 FLAT false
+.25 E 4 NATURAL false
+.25 E 4 FLAT false
+.125 B 3 FLAT false
+.125 G 3 SHARP false
+.5 E 4 FLAT true
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.5 E 4 NATURAL false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
+.125 E 4 FLAT true
+.5 E 4 FLAT false
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.5 E 4 NATURAL false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
+.125 E 4 FLAT false
+.5 E 4 FLAT false
+.25 E 4 FLAT false
+.125 E 4 FLAT false
+.125 R false
+.25 E 4 NATURAL false
+.25 E 4 FLAT false
+.25 B 3 NATURAL false
+.125 G 3 SHARP false
 
