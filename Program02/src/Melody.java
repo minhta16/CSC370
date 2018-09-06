@@ -6,23 +6,29 @@
  * Description: A class storing a song and its title and artist.
  * 
  * 
- * Cite Assistance (who and what):
+ * Cite Assistance (who and what): myself
  */
 
 import melody.audio.*;
 
 public class Melody {
-	private ArrayQueue<Note> song;
+	private QueueADT<Note> song;
 	private String title;
 	private String artist;
 	private double length;
 	private int noteSize;
 	private boolean appended;
 	
+	/**
+	 * Construct a Song object
+	 * @param title - song's title
+	 * @param artist - song's artist(s)
+	 * @param song - an ArrayQueue of Notes which represents a song
+	 */
 	public Melody(String title, String artist, QueueADT<Note> song) {
 		this.title = title;
 		this.artist = artist;
-		this.song = (ArrayQueue<Note>) song;
+		this.song = song;
 		length = 0;
 		noteSize = song.size();
 		appended = false;
@@ -66,7 +72,7 @@ public class Melody {
 	
 	/**
 	 * 
-	 * @return a string representation of the song(s)
+	 * @return a text representation of the song(s)
 	 */
 	public String toString() {
 		String string = title + "\n" + artist + "\n";
@@ -79,7 +85,7 @@ public class Melody {
 	}
 	
 	/**
-	 * Changing the duration of all notes in the song by a multiple of tempo.
+	 * Changing the duration of all notes in the song by a multiple of tempo. Length is also changed to a multiple of tempo.
 	 * @param tempo a ratio for the song(s) to change speed to
 	 */
 	public void changeTempo(double tempo) {
@@ -96,11 +102,11 @@ public class Melody {
 	 */
 	public void reverse() {
 		StackADT<Note> stack = new ArrayStack<Note>();
-		for (int i = 0; i < noteSize; i++) {
+		while(!song.isEmpty()) {
 			Note curNote = song.remove();
 			stack.push(curNote);
 		}
-		for (int i = 0; i < noteSize; i++) {
+		while(!stack.isEmpty()) {
 			Note curNote = stack.pop();
 			song.add(curNote);
 		}
@@ -138,9 +144,16 @@ public class Melody {
 			Note curNote = song.remove();
 			curNote.play();
 			song.add(curNote);
+			
+			//repeat the section if needed
+			
+			//add to tempQueue the starting note of the section
 			if (curNote.isRepeat()) {
 				tempQueue.add(curNote);
+				
+				// this checks the end of the repeating sequence
 				if (isRepeating) {
+					// plays tempQueue at the end of the repeating sequence
 					while (!tempQueue.isEmpty()) {
 						tempQueue.remove().play();
 					}
@@ -148,9 +161,11 @@ public class Melody {
 				isRepeating = !isRepeating;
 			}
 			
+			//the notes in between the two repeating notes are added to tempQueue
 			if (isRepeating && !curNote.isRepeat()) {
 				tempQueue.add(curNote);
 			}
+			
 		}
 	}
 }
