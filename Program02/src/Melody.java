@@ -17,6 +17,7 @@ public class Melody {
 	private String artist;
 	private double length;
 	private int noteSize;
+	private boolean appended;
 	
 	public Melody(String title, String artist, QueueADT<Note> song) {
 		this.title = title;
@@ -24,6 +25,7 @@ public class Melody {
 		this.song = (ArrayQueue<Note>) song;
 		length = 0;
 		noteSize = song.size();
+		appended = false;
 		
 		boolean isRepeating = false;
 		for (int i = 0; i < noteSize; i++) {
@@ -116,6 +118,14 @@ public class Melody {
 		}
 		length += other.length;
 		noteSize += other.noteSize;
+		if (appended) {
+			title += ", " + other.title;
+			artist += ", " + other.artist;
+		} else {
+			appended = true;
+			title += " and " + other.title;
+			artist += " ft. " + other.artist;
+		}
 	}
 	
 	/**
