@@ -132,7 +132,7 @@ public class Melody {
 	 */
 	public void append(Melody other) {
 		if (other == null) {
-			throw new NullPointerException("The parameter is null.");
+			throw new NullPointerException("The passed in song is null.");
 		}
 		
 		for (int i = 0; i < other.song.size(); i++) {
@@ -162,8 +162,7 @@ public class Melody {
 			curNote.play();
 			song.add(curNote);
 			
-			// repeat the section if needed
-			
+			// repeats the section if needed
 			if (curNote.isRepeat()) {
 				// add to tempQueue the starting note of the section
 				tempQueue.add(curNote);
