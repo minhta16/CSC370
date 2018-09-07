@@ -18,7 +18,6 @@ public class Melody {
 	private String title;			// song's title
 	private String artist;			// song's artist(s) name
 	private double length;			// song's length in seconds
-	private int noteSize;			// the total number of notes in the song
 	private boolean appended;		// true if the current song array consists of 2 songs
 	
 	/**
@@ -36,11 +35,10 @@ public class Melody {
 		this.artist = artist;
 		this.song = song;
 		length = 0;
-		noteSize = song.size();
 		appended = false;
 		
 		boolean isRepeating = false;
-		for (int i = 0; i < noteSize; i++) {
+		for (int i = 0; i < song.size(); i++) {
 			// adds up the duration of the song
 			Note curNote = song.remove();
 			length += curNote.getDuration();
@@ -87,7 +85,7 @@ public class Melody {
 	 */
 	public String toString() {
 		String string = title + "\n" + artist + "\n";
-		for (int i = 0; i < noteSize; i++) {
+		for (int i = 0; i < song.size(); i++) {
 			Note curNote = song.remove();
 			string += curNote.toString() + "\n";
 			song.add(curNote);
@@ -104,7 +102,7 @@ public class Melody {
 		if (tempo <= 0) {
 			throw new IllegalArgumentException("Tempo is not valid: " + tempo);
 		}
-		for (int i = 0; i < noteSize; i++) {
+		for (int i = 0; i < song.size(); i++) {
 			Note curNote = song.remove();
 			curNote.setDuration(curNote.getDuration() * tempo);
 			song.add(curNote);
@@ -137,13 +135,12 @@ public class Melody {
 			throw new NullPointerException("The parameter is null.");
 		}
 		
-		for (int i = 0; i < other.noteSize; i++) {
+		for (int i = 0; i < other.song.size(); i++) {
 			Note curNote = other.song.remove();
 			song.add(curNote);
 			other.song.add(curNote);
 		}
 		length += other.length;
-		noteSize += other.noteSize;
 		if (appended) {
 			title += ", " + other.title;
 			artist += ", " + other.artist;
@@ -160,7 +157,7 @@ public class Melody {
 	public void play() {
 		boolean isRepeating = false;
 		QueueADT<Note> tempQueue = new ArrayQueue<Note>();
-		for (int i = 0; i < noteSize; i++) {
+		for (int i = 0; i < song.size(); i++) {
 			Note curNote = song.remove();
 			curNote.play();
 			song.add(curNote);
