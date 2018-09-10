@@ -304,35 +304,88 @@ public class SentinelListTest {
 			System.out.println("    passed");
 		}
 
-//		System.out.println("\n\n*****Testing iterator implementation*****");	
-//		Iterator<String> itr = list.iterator();
-//		System.out.println("Iterating through the list with a while loop:");
-//		String result = "";
-//		while (itr.hasNext()) {
-//			String element= itr.next();
-//			System.out.println(element);
-//			result = result + element;
-//		}
-//		if (result.equals("newZeroalphabetadeltaepsilonnewFive")) {
-//			System.out.println("   passed.");
-//		} else {
-//			System.out.println("   failed.");
-//			System.exit(1);
-//		}
-//		
-//		itr = list.iterator();
-//		System.out.println("\nIterating through the list with a for each loop:");
-//		result = "";
-//		for (String element : list) {
-//			result = result + element;
-//			System.out.println(element);
-//		}
-//		if (result.equals("newZeroalphabetadeltaepsilonnewFive")) {
-//			System.out.println("   passed.");
-//		} else {
-//			System.out.println("   failed.");
-//			System.exit(1);
-//		}
+		System.out.println("\n\n*****Testing iterator implementation*****");	
+		Iterator<String> itr = list.iterator();
+		System.out.println("Iterating through the list with a while loop:");
+		String result = "";
+		while (itr.hasNext()) {
+			String element= itr.next();
+			System.out.println(element);
+			result = result + element;
+		}
+		if (result.equals("newZeroalphabetadeltaepsilonnewFive")) {
+			System.out.println("   passed.");
+		} else {
+			System.out.println("   failed.");
+			System.exit(1);
+		}
+		
+		itr = list.iterator();
+		System.out.println("\nIterating through the list with a for each loop:");
+		result = "";
+		for (String element : list) {
+			result = result + element;
+			System.out.println(element);
+		}
+		if (result.equals("newZeroalphabetadeltaepsilonnewFive")) {
+			System.out.println("   passed.");
+		} else {
+			System.out.println("   failed.");
+			System.exit(1);
+		}
+
+		itr = list.iterator();
+		System.out.println("\nRemoving the 1st element of the list:");
+		result = "";
+		itr.next();
+		itr.remove();
+		for (String element : list) {
+			result = result + element;
+			System.out.println(element);
+		}
+		if (result.equals("alphabetadeltaepsilonnewFive")) {
+			System.out.println("   passed.");
+		} else {
+			System.out.println("   failed.");
+			System.exit(1);
+		}
+		
+		itr = list.iterator();
+		System.out.println("\nRemoving the last element of the list:");
+		result = "";
+		while(itr.hasNext()) {
+			itr.next();
+		}
+		itr.remove();
+		for (String element : list) {
+			result = result + element;
+			System.out.println(element);
+		}
+		if (result.equals("alphabetadeltaepsilon")) {
+			System.out.println("   passed.");
+		} else {
+			System.out.println("   failed.");
+			System.exit(1);
+		}
+		
+		itr = list.iterator();
+		System.out.println("\nRemoving the 3rd element of the list:");
+		result = "";
+		for (int i = 0; i < 3; i++) {
+			itr.next();
+		}
+		itr.remove();
+		for (String element : list) {
+			result = result + element;
+			System.out.println(element);
+		}
+		if (result.equals("alphabetaepsilon")) {
+			System.out.println("   passed.");
+		} else {
+			System.out.println("   failed.");
+			System.exit(1);
+		}
+
 
 		System.out.println("\n\n*****Testing clear*****");
 		list.clear();

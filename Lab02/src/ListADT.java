@@ -5,7 +5,7 @@
  *            - generic type of element
  */
 
-public interface ListADT<E>{
+public interface ListADT<E> extends Iterable<E>{
 
 	/**
 	 * @return the number of elements in this list
