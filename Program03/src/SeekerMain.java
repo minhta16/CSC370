@@ -50,6 +50,7 @@ public class SeekerMain {
 		manager.printSeekingRing();
 		System.out.println("Final captured list is as follows:");
 		manager.printCapturedList();
+		input.close();
 	}
 
 	/**
