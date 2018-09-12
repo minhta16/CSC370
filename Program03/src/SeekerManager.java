@@ -26,7 +26,7 @@ public class SeekerManager {
 	 */
 	public SeekerManager(List<String> names) {
 		if (names == null || names.size() == 0) {
-			throw new IllegalArgumentException("Invalid names.");
+			throw new IllegalArgumentException("Invalid name list. The list might be empty or null.");
 		}
 		
 		frontRing = new SeekerNode(names.get(0));
@@ -64,10 +64,9 @@ public class SeekerManager {
 	public void printCapturedList() {
 		if (frontCaptured != null) {
 			SeekerNode current = frontCaptured;
-			System.out.println("  " + current.name + " was captured by " + current.capturedBy);
-			while (current.next != null) {
-				current = current.next;
+			while (current != null) {
 				System.out.println("  " + current.name + " was captured by " + current.capturedBy);
+				current = current.next;
 			}
 		}
 	}
@@ -81,16 +80,15 @@ public class SeekerManager {
 		boolean contain = false;
 		SeekerNode current = frontRing;
 		
-		// special case for 1st element
-		if (current.name.equalsIgnoreCase(name)) {
-			return true;
-		}
-		
-		while (current.next != null) {
-			current = current.next;
+		while (current != null) {
 			if (current.name.equalsIgnoreCase(name)) {
+				// save you from 1000 extra loops
+				if (current == frontRing) {
+					return true;
+				}
 				contain = true;
 			}
+			current = current.next;
 		}
 		return contain;
 	}
