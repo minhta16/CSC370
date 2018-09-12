@@ -50,11 +50,11 @@ public class SeekerManager {
 			System.out.println(current.name + " won the game!");
 		} else {
 			while (current.next != null) {
-				System.out.println(current.name + " is seeking " + current.next.name);
+				System.out.println("  " + current.name + " is seeking " + current.next.name);
 				current = current.next;
 			}
 			// special case for the last element
-			System.out.println(current.name + " is seeking " + frontRing.name);
+			System.out.println("  " + current.name + " is seeking " + frontRing.name);
 		}
 	}
 	
