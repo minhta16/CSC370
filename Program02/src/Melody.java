@@ -6,7 +6,7 @@
  * Description: A class storing a song and its title and artist.
  * 
  * 
- * Cite Assistance (who and what): myself
+ * Cite Assistance (who and what): Max helped me with formating.
  */
 
 import melody.audio.*;
@@ -36,7 +36,13 @@ public class Melody {
 		this.song = song;
 		length = 0;
 		appended = false;
-		
+		computeLength();		
+	}
+	
+	/**
+	 * Compute the total length of the song.
+	 */
+	private void computeLength() {
 		boolean isRepeating = false;
 		for (int i = 0; i < song.size(); i++) {
 			// adds up the duration of the song
