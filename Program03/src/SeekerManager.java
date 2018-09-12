@@ -158,8 +158,8 @@ public class SeekerManager {
 			if (personCaptured == FALSE && current.name.equalsIgnoreCase(name)) {
 				personCaptured = MIDDLE;
 				
-				// if current.next.next is the last element then just eliminate it, else
-				//	skip current.next
+				// if current is the last element then just eliminate it, else link prevNode
+				//	to current.next
 				SeekerNode temp = current.next;
 				current.next = frontCaptured;
 				frontCaptured = current;
