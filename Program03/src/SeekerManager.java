@@ -186,8 +186,7 @@ public class SeekerManager {
 
 	private static class SeekerNode {
 		private String name; // this person's name
-		private String capturedBy; // name of who captured this person (null if
-									// still in the seeking ring)
+		private String capturedBy; // name of who captured this person (null if still in the seeking ring)
 		private SeekerNode next; // next node in the list
 
 		private SeekerNode(String name) {
