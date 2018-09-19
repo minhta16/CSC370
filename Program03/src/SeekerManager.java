@@ -77,20 +77,16 @@ public class SeekerManager {
 	 * @return true if the Seekers Ring contains name.
 	 */
 	public boolean seekingRingContains(String name) {
-		boolean contain = false;
 		SeekerNode current = frontRing;
 		
 		while (current != null) {
 			if (current.name.equalsIgnoreCase(name)) {
 				// save you from 1000 extra loops
-				if (current == frontRing) {
-					return true;
-				}
-				contain = true;
+				return true;
 			}
 			current = current.next;
 		}
-		return contain;
+		return false;
 	}
 
 	/**
@@ -99,18 +95,17 @@ public class SeekerManager {
 	 * @return true if the captured list contains name.
 	 */
 	public boolean capturedListContains(String name) {
-		boolean contain = false;
 		SeekerNode current = frontCaptured;
 		
 		if (current != null) {
 			while (current.next != null) {
 				if (current.name.equalsIgnoreCase(name)) {
-					contain = true;
+					return true;
 				}
 				current = current.next;
 			}
 		}
-		return contain;
+		return false;
 	}
 	
 	/**
