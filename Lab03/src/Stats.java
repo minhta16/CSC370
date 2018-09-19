@@ -43,8 +43,13 @@ public class Stats {
 	 * computes the average of a list of double numbers
 	 * @param list- the list of double numbers
 	 * @return the average of the list
+	 * @throws IllegalArgumentException when the list is empty or null.
 	 */
 	public static double computeAverage(List<Double> list){
+		if (list.size() == 0 || list == null) {
+			throw new IllegalArgumentException("Invalid list.");
+		}
+		
 		Iterator<Double> itr = list.iterator();
 		double sum = 0;
 		while (itr.hasNext()) {
@@ -58,8 +63,17 @@ public class Stats {
 	 * @param list-the list of double numbers
 	 * @param average- the average of that list
 	 * @return the standard deviation of that list
+	 * @throws IllegalArgumentException when the list is empty or null or when the average is negative.
 	 */
 	public static double computeStandardDev(List<Double> list, double average){
+		if (list.size() == 0 || list == null) {
+			throw new IllegalArgumentException("Invalid list.");
+		}
+		
+		if (average < 0) {
+			throw new IllegalArgumentException("Invalid average.");
+		}
+		
 		Iterator<Double> itr = list.iterator();
 		double numerator = 0;
 		while (itr.hasNext()) {
@@ -76,8 +90,22 @@ public class Stats {
 	 * @param list - the list of double numbers
 	 * @param average - the average of that list
 	 * @param standDev - the standard deviation of that list
+	 * @throws IllegalArgumentException when the list is empty or null, when the average is negative, or when the standard deviation is negative.
 	 */
 	public static void removeOutliers(List<Double> list, double average, double standDev){
+
+		if (list.size() == 0 || list == null) {
+			throw new IllegalArgumentException("Invalid list.");
+		}
+
+		if (average < 0) {
+			throw new IllegalArgumentException("Invalid average.");
+		}
+		
+		if (standDev < 0) {
+			throw new IllegalArgumentException("Invalid standard deviation.");
+		}
+		
 		double lowerBound = average - 2 * standDev;
 		double upperBound = average + 2 * standDev;
 		Iterator<Double> itr = list.iterator();
