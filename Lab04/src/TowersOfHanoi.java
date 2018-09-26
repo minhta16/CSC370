@@ -50,7 +50,13 @@ public class TowersOfHanoi {
      */
     public static void outputMoves(int numDisks, char startPeg,
             char destPeg, char auxPeg) {
-
+    	if (numDisks == 1) {
+    		System.out.println("Move disk " + numDisks + " from peg " + startPeg + " to peg " + destPeg);
+    	} else {
+    		outputMoves(numDisks - 1, startPeg, auxPeg, destPeg);
+    		System.out.println("Move disk " + numDisks + " from peg " + startPeg + " to peg " + destPeg);
+    		outputMoves(numDisks - 1, auxPeg, destPeg, startPeg);
+    	}
     	
     	
     }
