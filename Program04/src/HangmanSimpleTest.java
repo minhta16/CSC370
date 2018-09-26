@@ -187,7 +187,11 @@ public class HangmanSimpleTest {
 			int line = e.getStackTrace()[0].getLineNumber();
 			System.out.println("\t\tin line#" + line);
 			System.exit(1);
-		}		
+		}
+		
+		System.out.println("\nAll test passed!");
 	}
+	
+	
 
 }
