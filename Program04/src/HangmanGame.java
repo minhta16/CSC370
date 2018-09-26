@@ -8,32 +8,31 @@
  * Cite Assistance:
  * 
  */
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class HangmanGame {
 	private int guessLeft;
-	private ArrayList<Character> displayPattern;
+	private String displayPattern;
 	private TreeSet<String> currentWords;
 	private TreeSet<Character> letterGuessed;
-	private TreeMap<ArrayList<Character>, TreeSet<String>> currentPatternMap;
+	private TreeMap<String, TreeSet<String>> currentPatternMap;
 
 	public HangmanGame (List<String> dictionary, int length, int maximum) {
 		if (length <= 1 || maximum <= 0) {
 			throw new IllegalArgumentException("Illegal length / maximum guesses.");
 		}
+		displayPattern = "-";
+		for (int i = 1; i < length; i++) {
+			displayPattern += " -";
+		}
 		currentWords = new TreeSet<String>();
-		currentPatternMap = new TreeMap<ArrayList<Character>, TreeSet<String>>();
+		currentPatternMap = new TreeMap<String, TreeSet<String>>();
 		for (String word : dictionary) {
 			if (word.length() == length) {
 				currentWords.add(word);
 			}
 		}
-		displayPattern = new ArrayList<Character>();
-		for (int i = 0; i < length; i++) {
-			displayPattern.add('-');
-		}
+		currentPatternMap.put(displayPattern, currentWords);
 		
 		guessLeft = maximum;
 		letterGuessed = new TreeSet<Character>();
@@ -55,13 +54,7 @@ public class HangmanGame {
 		if (currentWords.isEmpty()) {
 			throw new IllegalStateException("Word set is empty.");
 		}
-		String returnString = "";
-		for (int i = 0; i < displayPattern.size() - 1; i++) {
-			returnString += Character.toString(displayPattern.get(i)) + " ";
-		}
-		returnString += Character.toString(displayPattern.get(displayPattern.size() - 1));
-		
-		return returnString;
+		return displayPattern;
 	}
 	
 	public int recordGuess(char guess) {
@@ -72,56 +65,62 @@ public class HangmanGame {
 			throw new IllegalArgumentException("Character already guessed.");
 		}
 		letterGuessed.add(guess);
-		makeGuessTree(guess);
+		currentPatternMap = makeGuessTree(guess);
 		
-		ArrayList<Character> longestSet = findKeyOfLongestWordSet();
-		currentWords = currentPatternMap.get(longestSet);		
-		displayPattern = longestSet;
-		if (displayPattern.contains(guess)) {
-			System.out.println("Sorry, there are no " + guess + "'s.");
-		} else {
-			System.out.print("Yes, there ");
-			TreeSet<Character> set = new TreeSet<Character>(displayPattern);
-			if (displayPattern.size() != set.size()) {
-				System.out.println("are " + (displayPattern.size() - set.size()) + " " + guess + "'s");
-			} else {
-				System.out.println("is one " + guess);
-			}
+		displayPattern = findMaxWordSetKey();
+		currentWords = currentPatternMap.get(displayPattern);
+		
+		int numGuessedChar = displayPattern.length() - displayPattern.replaceAll(Character.toString(guess), "").length();
+		if (numGuessedChar <= 0) {
+			guessLeft--;
 		}
-		System.out.println();
-		return 0;
+		return numGuessedChar;
 	}
 	
-	private void makeGuessTree(char guess) {
+	private TreeMap<String, TreeSet<String>> makeGuessTree(char guess) {
+		TreeMap<String, TreeSet<String>> map = new TreeMap<String, TreeSet<String>>();
 		for (String word : currentWords) {
-			ArrayList<Character> wordPattern = new ArrayList<Character>();
-			for (int i = 0; i < word.length(); i++) {
-				if (word.charAt(i) == guess) {
-					wordPattern.add(guess);
-				} else {
-					wordPattern.add('-');
-				}
-			}
-			if (currentPatternMap.containsKey(wordPattern)) {
-				TreeSet<String> newWordSet = currentPatternMap.get(wordPattern);
-				newWordSet.add(word);
-				currentPatternMap.put(wordPattern, newWordSet);
+			// making word pattern
+			String wordPattern = makeWordPattern(word);
+			
+			// if the word set of the pattern is already in the map, add the word into the set. Otherwise, create a new set.
+			if (map.containsKey(wordPattern)) {
+				map.get(wordPattern).add(word);
 			} else {
 				TreeSet<String> newWordSet = new TreeSet<String>();
 				newWordSet.add(word);
-				currentPatternMap.put(wordPattern, newWordSet);
+				map.put(wordPattern, newWordSet);
 			}
 		}
+		return map;
 	}
 	
-	private ArrayList<Character> findKeyOfLongestWordSet() {
-		ArrayList<Character> longestSet = new ArrayList<Character>();
-		for (ArrayList<Character> key : currentPatternMap.keySet()) {
-			if (currentPatternMap.get(key).size() > longestSet.size()) {
-				longestSet = key;
+	private String findMaxWordSetKey() {
+		String biggestSet = "";
+		for (String key : currentPatternMap.keySet()) {
+			if (biggestSet.equals("") || currentPatternMap.get(key).size() > currentPatternMap.get(biggestSet).size()) {
+				biggestSet = key;
 			}
 		}
-		return longestSet;
+		return biggestSet;
+	}
+	
+	private String makeWordPattern(String word) {
+		String wordPattern = "";
+		for (int i = 0; i < word.length() - 1; i++) {
+			if (letterGuessed.contains(word.charAt(i))) {
+				wordPattern += word.charAt(i) + " ";
+			} else {
+				wordPattern += "- ";
+			}
+		}
+
+		if (letterGuessed.contains(word.charAt(word.length() - 1))) {
+			wordPattern += word.charAt(word.length() - 1);
+		} else {
+			wordPattern += "-";
+		}
+		return wordPattern;
 	}
 	
 }

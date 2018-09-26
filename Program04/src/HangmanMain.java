@@ -11,8 +11,8 @@ import java.util.*;
 import java.io.*;
 
 public class HangmanMain  {
-    public static final String DICTIONARY_FILE = "dictionary.txt";
-    public static final boolean DEBUG = false;  // show words left
+    public static final String DICTIONARY_FILE = "dictionary2.txt";
+    public static final boolean DEBUG = true;  // show words left
 
     public static void main(String[] args) throws FileNotFoundException {
         System.out.println("Welcome to Hangman.");

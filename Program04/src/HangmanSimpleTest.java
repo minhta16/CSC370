@@ -12,6 +12,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class HangmanSimpleTest {
 
@@ -25,6 +27,8 @@ public class HangmanSimpleTest {
 		HangmanGame game = new HangmanGame(dictionary, 4, 10);
 		
 		input.close();
+		
+		Set<String> wordsLeft = game.wordsLeft();
 
 	}
 
