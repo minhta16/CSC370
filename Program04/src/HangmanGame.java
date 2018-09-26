@@ -97,7 +97,7 @@ public class HangmanGame {
 			throw new IllegalArgumentException("Character already guessed.");
 		}
 		letterGuessed.add(guess);
-		currentPatternMap = makeGuessTree(guess);
+		makeGuessTree(guess);
 		
 		displayPattern = findMaxWordSetKey();
 		currentWords = currentPatternMap.get(displayPattern);
@@ -110,23 +110,22 @@ public class HangmanGame {
 		return numGuessedChar;
 	}
 	
-	// Create and return a guess tree based on the pattern of words.
-	private TreeMap<String, TreeSet<String>> makeGuessTree(char guess) {
-		TreeMap<String, TreeSet<String>> map = new TreeMap<String, TreeSet<String>>();
+	// Make a new guess tree based on the pattern of words.
+	private void makeGuessTree(char guess) {
+		currentPatternMap.clear();
 		for (String word : currentWords) {
 			// making word pattern
 			String wordPattern = makeWordPattern(word);
 			
 			// if the word set of the pattern is already in the map, add the word into the set. Otherwise, create a new set.
-			if (map.containsKey(wordPattern)) {
-				map.get(wordPattern).add(word);
+			if (currentPatternMap.containsKey(wordPattern)) {
+				currentPatternMap.get(wordPattern).add(word);
 			} else {
 				TreeSet<String> newWordSet = new TreeSet<String>();
 				newWordSet.add(word);
-				map.put(wordPattern, newWordSet);
+				currentPatternMap.put(wordPattern, newWordSet);
 			}
 		}
-		return map;
 	}
 	
 	// Create and return a pattern based on the word.
