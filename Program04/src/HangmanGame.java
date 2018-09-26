@@ -8,15 +8,27 @@
  * Cite Assistance:
  * 
  */
-import java.util.*;
+
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class HangmanGame {
-	private int guessLeft;
-	private String displayPattern;
-	private TreeSet<String> currentWords;
-	private TreeSet<Character> letterGuessed;
-	private TreeMap<String, TreeSet<String>> currentPatternMap;
+	private int guessLeft;										// number of guess remaining
+	private String displayPattern;								// current pattern that is displayed to the player
+	private TreeSet<String> currentWords;						// the set of words that are viable to be the answer
+	private TreeSet<Character> letterGuessed;					// the set of all guessed character
+	protected TreeMap<String, TreeSet<String>> currentPatternMap;	// the map of all remaining patterns of words
 
+	
+	/**
+	 * Construct a new HangmanGame object.
+	 * 
+	 * @param dictionary - the list of all words used in the game
+	 * @param length - the length of the answer
+	 * @param maximum - the maximum number of guesses before game over
+	 */
 	public HangmanGame (List<String> dictionary, int length, int maximum) {
 		if (length <= 1 || maximum <= 0) {
 			throw new IllegalArgumentException("Illegal length / maximum guesses.");
@@ -38,18 +50,30 @@ public class HangmanGame {
 		letterGuessed = new TreeSet<Character>();
 	}
 	
+	/**
+	 * @return a set of words that are viable to be the answer 
+	 */
 	public Set<String> wordsLeft() {
 		return currentWords;
 	}
 	
+	/**
+	 * @return the number of guesses left before game over
+	 */
 	public int numGuessesLeft() {
 		return guessLeft;
 	}
 	
+	/**
+	 * @return a set of all characters which have been guesses by the player
+	 */
 	public Set<Character> guessedLetters() {
 		return letterGuessed;
 	}
 	
+	/**
+	 * @return a string of pattern which represent the answer (e.g. "b a - a -")
+	 */
 	public String pattern() {
 		if (currentWords.isEmpty()) {
 			throw new IllegalStateException("Word set is empty.");
@@ -57,6 +81,14 @@ public class HangmanGame {
 		return displayPattern;
 	}
 	
+	/**
+	 * This method takes in a character and then returns the number of occurrence of that character in the answer.
+	 * Note that this method will construct a tree of all patterns of answers containing the guessed character, then
+	 * pick the best pattern in order to make the player lose.
+	 * 
+	 * @param guess - the character the player guessed
+	 * @return the number of occurrence of that character
+	 */
 	public int recordGuess(char guess) {
 		if (guessLeft <= 0 || currentWords.isEmpty()) {
 			throw new IllegalStateException("Game is over / Word set is empty.");
@@ -70,6 +102,7 @@ public class HangmanGame {
 		displayPattern = findMaxWordSetKey();
 		currentWords = currentPatternMap.get(displayPattern);
 		
+		// create a new string without the guessed character, then compare the length of that string to the initial string
 		int numGuessedChar = displayPattern.length() - displayPattern.replaceAll(Character.toString(guess), "").length();
 		if (numGuessedChar <= 0) {
 			guessLeft--;
@@ -77,6 +110,7 @@ public class HangmanGame {
 		return numGuessedChar;
 	}
 	
+	// Create and return a guess tree based on the pattern of words.
 	private TreeMap<String, TreeSet<String>> makeGuessTree(char guess) {
 		TreeMap<String, TreeSet<String>> map = new TreeMap<String, TreeSet<String>>();
 		for (String word : currentWords) {
@@ -95,16 +129,7 @@ public class HangmanGame {
 		return map;
 	}
 	
-	private String findMaxWordSetKey() {
-		String biggestSet = "";
-		for (String key : currentPatternMap.keySet()) {
-			if (biggestSet.equals("") || currentPatternMap.get(key).size() > currentPatternMap.get(biggestSet).size()) {
-				biggestSet = key;
-			}
-		}
-		return biggestSet;
-	}
-	
+	// Create and return a pattern based on the word.
 	private String makeWordPattern(String word) {
 		String wordPattern = "";
 		for (int i = 0; i < word.length() - 1; i++) {
@@ -121,6 +146,18 @@ public class HangmanGame {
 			wordPattern += "-";
 		}
 		return wordPattern;
+	}
+	
+	
+	// Find and return the pattern which contains the biggest set of words.
+	private String findMaxWordSetKey() {
+		String biggestSet = "";
+		for (String key : currentPatternMap.keySet()) {
+			if (biggestSet.equals("") || currentPatternMap.get(key).size() > currentPatternMap.get(biggestSet).size()) {
+				biggestSet = key;
+			}
+		}
+		return biggestSet;
 	}
 	
 }
