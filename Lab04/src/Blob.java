@@ -25,9 +25,20 @@ public class Blob {
      * @return The number of cells in the blob that contains (x, y)
      */
     public int countCells(int x, int y) {
-       return 0; 
+		grid.recolor(x, y, GridColors.TEMPORARY);
+		int sum = 1;
+		for (int i = x - 1; i <= x + 1; i++) {
+			for (int j = y - 1; j <= y + 1; j++) {
+				if (0 <= i && i < grid.getNCols() && 0 <= j & j < grid.getNRows()) {
+    				if (grid.getColor(i, j).equals(GridColors.ABNORMAL)) {
+        				sum += countCells(i, j);
+    				}
+					
+				}
+			}
+		}
+		return sum;
     }
-
     
     /** Restore the grid by returning all TEMPORARY cells to ABNORMAL */
     public void restore() {
