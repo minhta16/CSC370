@@ -37,6 +37,7 @@ public class TowersOfHanoi {
     	System.out.println("\nHere are the moves:");
     	
     	outputMoves(numDisks, INITIAL_PEG, DESTINATION_PEG, AUX_PEG);
+    	console.close();
     	
     }   
     

@@ -64,17 +64,15 @@ public class FractalHTree {
 	 * 
 	 */
 	public static void drawHTree(int order, Graphics g, int x, int y, int length) {
-		if (order > 0 || length > 0) {
-			int halfLen = length / 2;
-			g.drawLine(x, y - halfLen, x, y + halfLen);
-			g.drawLine(x - halfLen, y - halfLen, x + halfLen, y - halfLen);
-			g.drawLine(x - halfLen, y + halfLen, x + halfLen, y + halfLen);
-			if (order - 1 != 0) {
-				drawHTree(order - 1, g, x - halfLen, y - halfLen, halfLen);
-				drawHTree(order - 1, g, x - halfLen, y + halfLen, halfLen);
-				drawHTree(order - 1, g, x + halfLen, y - halfLen, halfLen);
-				drawHTree(order - 1, g, x + halfLen, y + halfLen, halfLen);
-			}
+		int halfLen = length / 2;
+		g.drawLine(x, y - halfLen, x, y + halfLen);
+		g.drawLine(x - halfLen, y - halfLen, x + halfLen, y - halfLen);
+		g.drawLine(x - halfLen, y + halfLen, x + halfLen, y + halfLen);
+		if (order - 1 != 0 && halfLen != 0) {
+			drawHTree(order - 1, g, x - halfLen, y - halfLen, halfLen);
+			drawHTree(order - 1, g, x - halfLen, y + halfLen, halfLen);
+			drawHTree(order - 1, g, x + halfLen, y - halfLen, halfLen);
+			drawHTree(order - 1, g, x + halfLen, y + halfLen, halfLen);
 		}
 
 	}
