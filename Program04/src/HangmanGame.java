@@ -104,7 +104,7 @@ public class HangmanGame {
 		
 		// create a new string without the guessed character, then compare the length of that string to the initial string
 		int numGuessedChar = displayPattern.length() - displayPattern.replaceAll(Character.toString(guess), "").length();
-		if (numGuessedChar <= 0) {
+		if (numGuessedChar == 0) {
 			guessLeft--;
 		}
 		return numGuessedChar;
