@@ -1,8 +1,8 @@
 /**
  * Class that solves problem of counting abnormal cells.
  * 
- *  @author 
- *  @date
+ *  @author Minh Ta
+ *  @date 09/28/18
  *  @version CSC370-Lab4
  **/
 public class Blob {

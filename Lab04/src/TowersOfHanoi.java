@@ -1,7 +1,7 @@
 /** Class that solves Towers of Hanoi problem.
  * 
- *  @author 
- *  @date
+ *  @author Minh Ta
+ *  @date 09/28/18
  *  @version CSC370-Lab4
  **/
 import java.util.*;
