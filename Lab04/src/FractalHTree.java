@@ -44,8 +44,9 @@ public class FractalHTree {
 		Date date = new Date();
 		double start = date.getTime();
 		drawHTree(order, g, x, y, length);
-		double totalTime = date.getTime() - start;
-		System.err.println("Time elapsed: " + (totalTime * 1000) + " seconds.");
+		Date date2 = new Date();
+		double totalTime = date2.getTime() - start;
+		System.err.printf("Time elapsed: %.2f seconds.", totalTime / 1000);
 	}
 
 	/**
