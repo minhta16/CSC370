@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 [[{"location":"C:\\Study\\CSC370\\Program04","type":"PROJECT","hints":{"PROJECT_NAME":"Program04"}},"ABSENT"],[{"location":"C:\\Program Files\\Java\\jdk-10.0.2","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-10"}},"jre:jre:1.10.0"]]
+=======
+[[{"location":"C:\\Program Files\\Java\\jdk-10.0.2","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-10"}},"jre:jre:1.10.0"],[{"location":"C:\\Program Files\\Java\\jdk-10.0.2","type":"JRE","hints":{"EXECUTION_ENVIRONMENT":"JavaSE-1.8"}},"jre:jre:1.8.0"]]
+>>>>>>> 2ce5730eb4e39df62042692ccd45aee48955472f
