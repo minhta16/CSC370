@@ -1,7 +1,7 @@
 /** Class that solves Towers of Hanoi problem.
  * 
- *  @author 
- *  @date
+ *  @author Minh Ta
+ *  @date 09/28/18
  *  @version CSC370-Lab4
  **/
 import java.util.*;
@@ -37,6 +37,7 @@ public class TowersOfHanoi {
     	System.out.println("\nHere are the moves:");
     	
     	outputMoves(numDisks, INITIAL_PEG, DESTINATION_PEG, AUX_PEG);
+    	console.close();
     	
     }   
     
