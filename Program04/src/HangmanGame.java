@@ -131,18 +131,15 @@ public class HangmanGame {
 	// Create and return a pattern based on the word.
 	private String makeWordPattern(String word) {
 		String wordPattern = "";
-		for (int i = 0; i < word.length() - 1; i++) {
+		for (int i = 0; i < word.length(); i++) {
 			if (letterGuessed.contains(word.charAt(i))) {
-				wordPattern += word.charAt(i) + " ";
+				wordPattern += word.charAt(i);
 			} else {
-				wordPattern += "- ";
+				wordPattern += "-";
 			}
-		}
-
-		if (letterGuessed.contains(word.charAt(word.length() - 1))) {
-			wordPattern += word.charAt(word.length() - 1);
-		} else {
-			wordPattern += "-";
+			if (i != word.length() - 1) {
+				wordPattern += " ";
+			}
 		}
 		return wordPattern;
 	}
