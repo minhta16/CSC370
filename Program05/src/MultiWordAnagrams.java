@@ -79,14 +79,13 @@ public class MultiWordAnagrams {
 	 */
 	
 	private void printAnagramsHelper(int max, int curIndex, Set<String> wordSet, LetterRecord phraseLR, List<String> result) {
-		if (curIndex == max) {
+		if (curIndex == max || phraseLR.isEmpty()) {
 			if (phraseLR.isEmpty()) {
 				System.out.println(result);
 			}
 		} else {
 			for (String word: wordSet) {
 				LetterRecord newPhraseLR = phraseLR.subtract(lrMap.get(word));
-				
 				if (newPhraseLR != null && (curIndex < max || max == 0)) {
 					result.add(word);
 					printAnagramsHelper(max, curIndex + 1, wordSet, newPhraseLR, result);
