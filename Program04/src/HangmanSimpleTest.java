@@ -178,7 +178,7 @@ public class HangmanSimpleTest {
 			if (numOcc == 1) {
 				System.out.println("\tpassed");
 			} else {
-				System.out.println("\tfailed. recordGuess returns: " + numOcc + " instead of: " + 2);
+				System.out.println("\tfailed. recordGuess returns: " + numOcc + " instead of: " + 1);
 				System.exit(1);
 			}
  		} catch (Exception e) {
