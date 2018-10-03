@@ -19,6 +19,8 @@ public class HangmanGame {
 	private String displayPattern;								// current pattern that is displayed to the player
 	private TreeSet<String> currentWords;						// the set of words that are viable to be the answer
 	private TreeSet<Character> letterGuessed;					// the set of all guessed character
+	
+	// TODO: make this private when done testing
 	protected TreeMap<String, TreeSet<String>> currentPatternMap;	// the map of all remaining patterns of words
 
 	
@@ -31,7 +33,7 @@ public class HangmanGame {
 	 */
 	public HangmanGame (List<String> dictionary, int length, int maximum) {
 		if (length <= 1 || maximum <= 0) {
-			throw new IllegalArgumentException("Illegal length / maximum guesses.");
+			throw new IllegalArgumentException("Illegal length / number of maximum guesses.");
 		}
 		displayPattern = "-";
 		for (int i = 1; i < length; i++) {
@@ -44,7 +46,6 @@ public class HangmanGame {
 				currentWords.add(word);
 			}
 		}
-		currentPatternMap.put(displayPattern, currentWords);
 		
 		guessLeft = maximum;
 		letterGuessed = new TreeSet<Character>();

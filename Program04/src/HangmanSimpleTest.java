@@ -31,7 +31,7 @@ public class HangmanSimpleTest {
 		
 		try {
 			System.out.println("\nillegal length test: ");
-			HangmanGame newGame = new HangmanGame(dictionary, -1, 10);
+			new HangmanGame(dictionary, -1, 10);
  		} catch (IllegalArgumentException e) {
 			System.out.println("\tpassed");
 			System.out.println("\tthrew exception: " + e);
@@ -45,7 +45,7 @@ public class HangmanSimpleTest {
 		
 		try {
 			System.out.println("\nillegal number of guesses test: ");
-			HangmanGame newGame = new HangmanGame(dictionary, 4, -420);
+			new HangmanGame(dictionary, 4, -420);
  		} catch (IllegalArgumentException e) {
 			System.out.println("\tpassed");
 			System.out.println("\tthrew exception: " + e);
