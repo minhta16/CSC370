@@ -1,10 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.NoSuchElementException;
-
-import javax.swing.event.ListSelectionEvent;
+import java.util.*;
 
 /**
  * Constructs a binary expression tree from a postfix expression.
@@ -23,16 +17,26 @@ public class ExpressionTree {
 
 	private TreeNode expressionRoot;
 
+	/**
+	 * Construct a new ExpressionTree
+	 */
 	public ExpressionTree() {
 		expressionRoot = null;
 	}
 
+	/**
+	 * This method takes in a postfix expression and construct a binary tree of operations and
+	 * make expressionRoot refers to the root of that tree.
+	 * @param expression the postfix expression to be processed
+	 */
 	public void constructTree(String expression) {
 		StackADT<TreeNode> stack = new ArrayStack<TreeNode>();
 		expression = expression.replaceAll(" ", "");
 		constructTree(expression.toCharArray(), stack);
 	}
 	
+	// a helper method that use the strategy on the book to construct a binary tree of operations
+	// recursively.
 	private void constructTree(char[] expression, StackADT<TreeNode> stack) {
 		for (int i = 0; i < expression.length; i++) {
 			if (isDigit(expression[i])) {
@@ -52,41 +56,77 @@ public class ExpressionTree {
 				throw new IllegalArgumentException("Invalid postfix string");
 			}
 		}
-		if (stack.size() != 1) {
+		if (stack.size() != 1) { // when there are more operands than operators
 			throw new IllegalArgumentException("Invalid postfix string");
-		} else {
+		} else {	// when the tree is complete
 			expressionRoot = stack.pop();
 		}
 	}
 	
+	/**
+	 * @return a prefix expression based on the constructed operations binary tree
+	 */
 	public String getPrefixExpression() {
 		return getPrefixExpression(expressionRoot);
 	}
 	
+	/*
+	 * a helper method that recursively construct a prefix expression from the operations
+	 * binary tree
+	 */
 	private String getPrefixExpression(TreeNode node) {
 		if (node != null) {
-			return node.data + " " + getPrefixExpression(node.left) + getPrefixExpression(node.right);
+			return Character.toString(node.data) + SPACE + getPrefixExpression(node.left) + getPrefixExpression(node.right);
+		} else {
+			return "";
 		}
-		return "";
 	}
 	
+	/** 
+	 * @return a infix expression based on the constructed operations binary tree
+	 */
 	public String getInfixExpression() {
 		return getInfixExpression(expressionRoot);
 	}
 	
+	/* 
+	 * a helper method that recursively construct a infix expression from the operations
+	 * binary tree
+	 */
 	private String getInfixExpression(TreeNode node) {
-		if (node != null) {
-			String result = getInfixExpression(node.left);
-			if (node.left != null || node.right != null) {
-				result = "(" + result  + " " + node.data + " " + getInfixExpression(node.right) + ")";
-			} else {
-				 result += node.data + getInfixExpression(node.right);
-			}
-			return result;
+		if (node.left != null || node.right != null) { // if the current node is NOT the leaf then add
+														// parenthesis.
+			return "(" + getInfixExpression(node.left) + SPACE + node.data + SPACE + getInfixExpression(node.right) + ")";
+		} else {
+			return Character.toString(node.data);
 		}
-		return "";
 	}
 
+	/**
+	 * @return the result of the arithmetic expression
+	 */
+	public double evaluate() {
+		return evaluate(expressionRoot);
+	}
+
+	/* 
+	 * a helper method that recursively calculate the result of the expression from the
+	 * operations binary tree
+	 */
+	private double evaluate(TreeNode node) {
+		if (node.left == null && node.right == null) {
+			return convertToDigit(node.data);
+		} else {
+			switch(node.data) {
+			case '+': return evaluate(node.left) + evaluate(node.right);
+			case '-': return evaluate(node.left) - evaluate(node.right);
+			case '*': return evaluate(node.left) * evaluate(node.right);
+			case '/': return evaluate(node.left) / evaluate(node.right);
+			}
+		}
+		// to satisfy java complier.
+		return 0;
+	}
 	/**
 	 * prints the binary tree sideways in the console window
 	 */

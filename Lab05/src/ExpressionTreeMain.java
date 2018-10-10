@@ -33,6 +33,6 @@ public class ExpressionTreeMain {
 		System.out.println("\n\nPostfix Expression: " + postfix);
 		System.out.println("Prefix Expression:  " + tree.getPrefixExpression());
 		System.out.println("Infix Expression:   " + tree.getInfixExpression());
-//		System.out.println("Evaluation: " + tree.evaluate());
+		System.out.println("Evaluation: " + tree.evaluate());
 	}
 }
