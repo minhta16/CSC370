@@ -12,7 +12,7 @@ import java.util.*;
 
 public class MultiWordAnagrams {
 	private Map<String, LetterRecord> letRecMap;	// a map that has [K]: a word
-												//				  [V]: that word's LetterRecord
+													//				  [V]: that word's LetterRecord
 	
 	/**
 	 * Construct a new MultiWordAnagrams object. This object will get all possible anagram words
