@@ -19,6 +19,7 @@ public class MultiWordAnagrams {
 	 * in a given dictionary into a map, then print out anagram phrases consists of those words.
 	 * 
 	 * @param dictionary - a list of words in a given dictionary.
+	 * @throws IllegalArgumentException if dictionary is either null or contains no elements
 	 */
 	public MultiWordAnagrams(List<String> dictionary) {
 		if (dictionary == null) {
@@ -38,6 +39,7 @@ public class MultiWordAnagrams {
 	 * 
 	 * @param phrase - the phrase to get words contain the characters in such phases.
 	 * @return a set of words which could be constructed using the characters in a given phrase.
+	 * @throws IllegalArgumentException if passed in phrase is null
 	 */
 	public Set<String> getWords(String phrase) {
 		if (phrase == null) {
