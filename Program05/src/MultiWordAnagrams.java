@@ -11,7 +11,7 @@ import java.util.*;
  */
 
 public class MultiWordAnagrams {
-	private Map<String, LetterRecord> lrMap;	// a map that has [K]: a word
+	private Map<String, LetterRecord> letRecMap;	// a map that has [K]: a word
 												//				  [V]: that word's LetterRecord
 	
 	/**
@@ -28,9 +28,9 @@ public class MultiWordAnagrams {
 		if (dictionary.size() == 0) {
 			throw new IllegalArgumentException("Dictionary is empty.");
 		}
-		lrMap = new HashMap<String, LetterRecord>();
+		letRecMap = new HashMap<String, LetterRecord>();
 		for (String word: dictionary) {
-			lrMap.put(word, new LetterRecord(word));
+			letRecMap.put(word, new LetterRecord(word));
 		}
 	}
 	
@@ -47,8 +47,8 @@ public class MultiWordAnagrams {
 		}
 		LetterRecord phraseLR = new LetterRecord(phrase);
 		Set<String> result = new TreeSet<String>();
-		for (String word: lrMap.keySet()) {
-			if (phraseLR.subtract(lrMap.get(word)) != null) {
+		for (String word: letRecMap.keySet()) {
+			if (phraseLR.subtract(letRecMap.get(word)) != null) {
 				result.add(word);
 			}
 		}
@@ -70,9 +70,9 @@ public class MultiWordAnagrams {
 	 */
 	public void printAnagrams(String phrase, int max) {
 		Set<String> wordSet = getWords(phrase);
-		LetterRecord phraseLR = new LetterRecord(phrase);
+		LetterRecord phraseLetRec = new LetterRecord(phrase);
 		List<String> result = new ArrayList<String>();
-		printAnagramsHelper(max, 0, wordSet, phraseLR, result);
+		printAnagramsHelper(max, 0, wordSet, phraseLetRec, result);
 	}
 	
 	/*
@@ -80,17 +80,17 @@ public class MultiWordAnagrams {
 	 *  that could be the anagram phrase.
 	 */
 	
-	private void printAnagramsHelper(int max, int curIndex, Set<String> wordSet, LetterRecord phraseLR, List<String> result) {
-		if (curIndex == max || phraseLR.isEmpty()) {
-			if (phraseLR.isEmpty()) {
+	private void printAnagramsHelper(int max, int curIndex, Set<String> wordSet, LetterRecord phraseLetRec, List<String> result) {
+		if (curIndex == max || phraseLetRec.isEmpty()) {
+			if (phraseLetRec.isEmpty()) {
 				System.out.println(result);
 			}
 		} else {
 			for (String word: wordSet) {
-				LetterRecord newPhraseLR = phraseLR.subtract(lrMap.get(word));
-				if (newPhraseLR != null && (curIndex < max || max == 0)) {
+				LetterRecord newPhraseLetRec = phraseLetRec.subtract(letRecMap.get(word));
+				if (newPhraseLetRec != null && (curIndex < max || max == 0)) {
 					result.add(word);
-					printAnagramsHelper(max, curIndex + 1, wordSet, newPhraseLR, result);
+					printAnagramsHelper(max, curIndex + 1, wordSet, newPhraseLetRec, result);
 					result.remove(word);
 				}
 			}
