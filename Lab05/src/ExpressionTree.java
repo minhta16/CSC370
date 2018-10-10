@@ -28,6 +28,7 @@ public class ExpressionTree {
 	 * This method takes in a postfix expression and construct a binary tree of operations and
 	 * make expressionRoot refers to the root of that tree.
 	 * @param expression the postfix expression to be processed
+	 * @throws IllegalArgumentException when the postfix expression is invalid
 	 */
 	public void constructTree(String expression) {
 		StackADT<TreeNode> stack = new ArrayStack<TreeNode>();
