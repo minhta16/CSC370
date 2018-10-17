@@ -116,6 +116,8 @@ public class GuessingGameTree {
 	/*
 	 * Recursively save each node of the tree to the file. Base case is when the current node
 	 * reaches any leaf of the tree.
+	 * 
+	 * post: save a file which has data of a tree on it.
 	 */
 	private void save(PrintStream output, TreeNode node) {
 		if (node.left == null && node.right == null) {
@@ -138,6 +140,8 @@ public class GuessingGameTree {
 	/*
 	 * Recursively load each node of the tree from the file. Base case is when the Scanner reaches any
 	 * line starting with 'A', which is a leaf of the tree.
+	 * 
+	 * return: a tree constructed from an input
 	 */
 	private TreeNode createTree(Scanner input) {
 		String newLine = input.nextLine();
