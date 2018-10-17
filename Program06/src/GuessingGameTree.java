@@ -1,6 +1,6 @@
 /**
  * Description: A class that handle the guessing game tree by creating
- * 				a guess tree and progress down the tree as the user 
+ * 				a guess tree and progress down the tree as the player 
  * 				answers yes/no questions.
  * 
  * @author Minh Ta
@@ -20,22 +20,34 @@ public class GuessingGameTree {
 	private Scanner console;
 	private boolean computerWon;
 
+	/**
+	 * Construct a new GuessingGameTree
+	 */
 	public GuessingGameTree() {
 		overallRoot = new TreeNode("computer");
 		console = new Scanner(System.in);
 		computerWon = false;
 	}
 	
+	/**
+	 * @return true if the computer win the game. false otherwise.
+	 */
 	public boolean getWinner() {
 		return computerWon;
 	}
 	
+	/**
+	 * Play the guessing game. The method will process down the tree as the user
+	 * enter the answer to questions.
+	 */
 	public void play() {
 		play(overallRoot, overallRoot, false);
-		
-		
 	}
 	
+	/*
+	 *  Recursively ask questions. The base case is when the current node reaches
+	 *  any leaf of the tree.
+	 */
 	private void play(TreeNode node, TreeNode prevNode, boolean lastLeft) {
 		if (node.left == null && node.right == null) {
 			computerWon = yesTo("Would your object happen to be " + node.text + "?");
@@ -50,17 +62,25 @@ public class GuessingGameTree {
 		}
 	}
 	
+	/*
+	 * Assert the result of the leaf. If the object in the leaf is correct, then the
+	 * computer wins. Otherwise, the computer loses and it will ask the user for
+	 * the true object, the question to distinguish between the old and the new object,
+	 * and the answer to that question.
+	 */
 	private void assertResult(TreeNode node, TreeNode prevNode, boolean lastLeft) {
 		if (computerWon) {
 			System.out.println("I win!");
 		} else {
 			System.out.print("I lose. What is your object? ");
 			String newObj = console.nextLine();
+			TreeNode newLeaf = new TreeNode(newObj);
+			
 			System.out.print("Type a yes/no question to distinguish " + newObj + " from " + node.text + ": ");
 			String newQues = console.nextLine();
-			boolean answeredYes = yesTo("And what is the answer to your question for a cat? ");
 			TreeNode newBranch = new TreeNode(newQues);
-			TreeNode newLeaf = new TreeNode(newObj);
+			
+			boolean answeredYes = yesTo("And what is the answer to your question for a cat? ");
 			if (answeredYes) {
 				newBranch.left = newLeaf;
 				newBranch.right = node;	
@@ -68,6 +88,8 @@ public class GuessingGameTree {
 				newBranch.left = node;
 				newBranch.right = newLeaf;
 			}
+			
+			// special case where the tree only consists of one root
 			if (prevNode == overallRoot && prevNode.left == null && prevNode.right == null) {
 				overallRoot = newBranch;
 			} else {
@@ -80,6 +102,10 @@ public class GuessingGameTree {
 		}
 	}
 	
+	/**
+	 * Save the current game to a text file that could later be loaded to continue game progress.
+	 * @param output - the PrintStream linked to the file to be created.
+	 */
 	public void save(PrintStream output) {
 		if (output == null) {
 			throw new IllegalArgumentException("Invalid PrintStream.");
@@ -87,6 +113,10 @@ public class GuessingGameTree {
 		save(output, overallRoot);
 	}
 	
+	/*
+	 * Recursively save each node of the tree to the file. Base case is when the current node
+	 * reaches any leaf of the tree.
+	 */
 	private void save(PrintStream output, TreeNode node) {
 		if (node.left == null && node.right == null) {
 			output.println("A:" + node.text);
@@ -97,10 +127,18 @@ public class GuessingGameTree {
 		}
 	}
 	
+	/**
+	 * Load a game from a text file.
+	 * @param input - the Scanner linked to the file to be loaded.
+	 */
 	public void load(Scanner input) {
 		overallRoot = createTree(input);
 	}
 	
+	/*
+	 * Recursively load each node of the tree from the file. Base case is when the Scanner reaches any
+	 * line starting with 'A', which is a leaf of the tree.
+	 */
 	private TreeNode createTree(Scanner input) {
 		String newLine = input.nextLine();
 		if (newLine.charAt(0) == 'A') {
@@ -150,7 +188,6 @@ public class GuessingGameTree {
 	}
 
 	// A TreeNode object represents a single question/answer in the game tree.
-
 	private class TreeNode {
 		public String text; // question for branch, answer for leaf
 		public TreeNode left; // for yes answers
