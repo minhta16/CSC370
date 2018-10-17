@@ -80,7 +80,7 @@ public class GuessingGameTree {
 			String newQues = console.nextLine();
 			TreeNode newBranch = new TreeNode(newQues);
 			
-			boolean answeredYes = yesTo("And what is the answer to your question for a cat? ");
+			boolean answeredYes = yesTo("And what is the answer to your question for a " + newObj + "? ");
 			if (answeredYes) {
 				newBranch.left = newLeaf;
 				newBranch.right = node;	
@@ -89,7 +89,7 @@ public class GuessingGameTree {
 				newBranch.right = newLeaf;
 			}
 			
-			// special case where the tree only consists of one root
+			// special case where the tree only consists of one node
 			if (prevNode == overallRoot && prevNode.left == null && prevNode.right == null) {
 				overallRoot = newBranch;
 			} else {
