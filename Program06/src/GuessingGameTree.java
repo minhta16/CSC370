@@ -89,7 +89,7 @@ public class GuessingGameTree {
 				newBranch.right = newLeaf;
 			}
 			
-			// special case where the tree only consists of one node
+			// special case where the tree only consists of one node, then replace that node
 			if (prevNode == overallRoot && prevNode.left == null && prevNode.right == null) {
 				overallRoot = newBranch;
 			} else {
@@ -105,6 +105,7 @@ public class GuessingGameTree {
 	/**
 	 * Save the current game to a text file that could later be loaded to continue game progress.
 	 * @param output - the PrintStream linked to the file to be created.
+	 * @throws IllegalArgumentException when output is null.
 	 */
 	public void save(PrintStream output) {
 		if (output == null) {
