@@ -16,6 +16,11 @@ import java.util.Scanner; // for Scanner
 
 
 public class GuessingGameTree {
+
+    private static final String COMPUTER_WIN_MESSAGE = "I win!";
+    private static final String COMPUTER_LOSE_MESSAGE = "I lose. What is your object? ";
+    private static final String FIRST_NODE = "computer";
+    
 	private TreeNode overallRoot; // overall root
 	private Scanner console;
 	private boolean computerWon;
@@ -24,7 +29,7 @@ public class GuessingGameTree {
 	 * Construct a new GuessingGameTree
 	 */
 	public GuessingGameTree() {
-		overallRoot = new TreeNode("computer");
+		overallRoot = new TreeNode(FIRST_NODE);
 		console = new Scanner(System.in);
 		computerWon = false;
 	}
@@ -70,9 +75,9 @@ public class GuessingGameTree {
 	 */
 	private void assertResult(TreeNode node, TreeNode prevNode, boolean lastLeft) {
 		if (computerWon) {
-			System.out.println("I win!");
+			System.out.println(COMPUTER_WIN_MESSAGE);
 		} else {
-			System.out.print("I lose. What is your object? ");
+			System.out.print(COMPUTER_LOSE_MESSAGE);
 			String newObj = console.nextLine();
 			TreeNode newLeaf = new TreeNode(newObj);
 			
