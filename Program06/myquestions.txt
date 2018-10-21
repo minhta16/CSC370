@@ -1,0 +1,31 @@
+Q:Is it a person?
+Q:Are they in Olin?
+Q:Are they a woman?
+Q:Does she teach Computer Science?
+A:Prof. Mueller
+Q:Does her husband teach in the same department?
+A:Dr. Rodman
+A:Prof. Kilbride
+Q:Does he have a beard?
+A:Dr. Sward
+Q:Is he Canadian?
+A:Dr. Champaign
+Q:Does his wife working in the same department?
+A:Dr. Clauss
+Q:Did he receive his Ph.D. in California?
+A:Dr. Bengtson
+Q:Is he an emu person?
+A:Dr. Stonedahl
+A:BK
+Q:Are they blonde?
+A:Britney Spears
+A:Barrack Obama
+Q:Is it an animal?
+Q:Do people drink its milk?
+Q:Does it usually have white dots on its body?
+A:cow
+A:goat
+A:elephant
+Q:Is it small?
+A:phone
+A:computer
